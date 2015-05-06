@@ -3,6 +3,8 @@ require './enumerable.rb'
 
 class Tc_MyTest < Test::Unit::TestCase
 	
+
+
 	def test_my_each
 		assert_equal [1,2,3,4].each { |e| puts e},
 						  [1,2,3,4].my_each { |e| puts e}
@@ -39,8 +41,34 @@ class Tc_MyTest < Test::Unit::TestCase
 								 [1,2,3,4].my_count { |i| i < 10 }
 	end
 
+	def test_my_map
+		assert_equal [1,2,3,4].map { |i| i * 10},
+								 [1,2,3,4].my_map { |i| i * 10 }
+	
 
 
+	end
 
+	def test_my_inject
+		assert_equal 	[1,2,3,4].inject(5) { |sum, i| sum + i },
+								 [1,2,3,4].my_inject(5)	{ |sum, i| sum + i }
+		assert_equal [5,2,3,4].inject { |prod,i| prod * i },
+								 [5,2,3,4].my_inject { |prod, i| prod * i }						 
+								 
+	end
+
+	def test_multiply_elements
+		assert_equal [1,2,3,4].inject { |product, i| product * i },
+		multiply_elements([1,2,3,4])
+		
+	end
+
+
+	def test_my_map_with_proc
+		my_proc = Proc.new { |arg| arg * 2 }
+		assert_equal [1,2,3,4].map(&my_proc), 
+								 [1,2,3,4].my_map(&my_proc)
+		assert [1,2,3,4].my_map { |i| i * 10 }
+	end
 
 end
